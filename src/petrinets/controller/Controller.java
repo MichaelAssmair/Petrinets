@@ -34,7 +34,7 @@ public class Controller {
 	private final Petrinet petrinet;
 	
 	//Pfad bestimmt das Verzeichnis, mit dem der Dateiauswahl-Dialog geöffnet wird
-	private String path = "./Beispiele";
+	private String path = "Beispiele";
 	
 	//Eine Referenz auf die geöffnete Datei
 	private File file;
