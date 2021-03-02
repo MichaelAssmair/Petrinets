@@ -1,3 +1,3 @@
 # Petrinets
 
-Programm
+Programm zum Analysieren eines Petri-Netzes und dessen Erreichbarkeitsgraphen
