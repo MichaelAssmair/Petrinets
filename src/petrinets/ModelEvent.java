@@ -19,7 +19,7 @@ public class ModelEvent extends EventObject {
 	private static final long serialVersionUID = 1L;
 	
 	//Befehl des Events
-	private final String command;
+	private final ModelAction action;
 	
 	/**
 	 * Konstruktor für einen ModelEvent.
@@ -32,9 +32,9 @@ public class ModelEvent extends EventObject {
 	 * @see #getCommand()
 	 * @see ModelListener
 	 */
-	public ModelEvent(Object source, String command) {
+	public ModelEvent(Object source, ModelAction action) {
 		super(source);
-		this.command = command;
+		this.action = action;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class ModelEvent extends EventObject {
 	 * @return Befehl des Events
 	 * 
 	 */
-	public String getCommand() {
-		return command;
+	public ModelAction getAction() {
+		return action;
 	}
 }

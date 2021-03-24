@@ -20,8 +20,10 @@ import org.graphstream.ui.view.ViewerListener;
 import org.graphstream.ui.view.ViewerPipe;
 import org.graphstream.ui.view.util.DefaultMouseManager;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
+import petrinets.controller.ButtonActions;
 import petrinets.petrinetModel.PertinetEdge;
 import petrinets.petrinetModel.Petrinet;
 import petrinets.petrinetModel.Place;
@@ -160,7 +162,7 @@ class PetrinetView extends JPanel implements ModelListener{
 			
 			@Override
 			public void buttonPushed(String id) {
-				listener.actionPerformed(new ActionEvent(id, 0, "petrinetClick"));
+				listener.actionPerformed(new ActionEvent(ButtonActions.PETRINET_CLICK, 0, id));
 			}
 		});
 	}
@@ -296,31 +298,31 @@ class PetrinetView extends JPanel implements ModelListener{
 	@Override
 	public void modelChanged(ModelEvent evt) {
 		//File wird übergeben
-		if("loadFile".equals(evt.getCommand())) {
+		if(ModelAction.LOAD_FILE.equals(evt.getAction())) {
 			clear();
 			
 		//Place wird übergeben
-		} else if("addPlace".equals(evt.getCommand())) {
+		} else if(ModelAction.ADD_PLACE.equals(evt.getAction())) {
 			addPlaces((Place)evt.getSource());
 			
 		//Transition wird übergeben
-		} else if("addTransition".equals(evt.getCommand())) {
+		} else if(ModelAction.ADD_TRANSITION.equals(evt.getAction())) {
 			addTransitions((Transition)evt.getSource());
 			
 		//PertinetEdge wird übergeben
-		} else if("addArc".equals(evt.getCommand())) {
+		} else if(ModelAction.ADD_ARC.equals(evt.getAction())) {
 			addEdge((PertinetEdge)evt.getSource());
 			
 		//Place wird übergeben
-		} else if("updatePlace".equals(evt.getCommand())) {
+		} else if(ModelAction.UPDATE_PLACE.equals(evt.getAction())) {
 			updatePlace((Place)evt.getSource());
 			
 		//Transition wird übergeben
-		} else if("updateTransition".equals(evt.getCommand())) {
+		} else if(ModelAction.UPDATE_TRANSITION.equals(evt.getAction())) {
 			updateTransition((Transition)evt.getSource());
 			
 		//Place wird übergeben
-		} else if("highlightPlace".equals(evt.getCommand())) {
+		} else if(ModelAction.HIGHLIGHT_PLACE.equals(evt.getAction())) {
 			highlightNode((Place)evt.getSource());
 		}
 	}

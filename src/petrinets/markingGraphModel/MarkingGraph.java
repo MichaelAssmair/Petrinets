@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
 import petrinets.petrinetModel.Petrinet;
@@ -49,7 +50,7 @@ public class MarkingGraph extends ArrayList<Marking>{
 		marking.getAdjList().clear();
 		//fügt Startmarkierung dem Graphen hinzu
 		add(marking);
-		notifyListener(new ModelEvent(marking, "addMarking"));
+		notifyListener(new ModelEvent(marking, ModelAction.ADD_MARKING));
 		currentMarking = marking;
 	}
 	
@@ -59,8 +60,8 @@ public class MarkingGraph extends ArrayList<Marking>{
 	 */
 	public final void resetMarkingGraph() {
 		//wird nur ausgeführt, falls es mehr als nur die Startmarkierung gibt.
-		if(size() > 1) {
-			notifyListener(new ModelEvent("Markierungs-Grapf wird zurückgesetzt.", "printLine"));
+		if(get(0).getAdjList().size() > 0) {
+			notifyListener(new ModelEvent("Markierungs-Grapf wird zurückgesetzt.", ModelAction.PRINT_LINE));
 			initMarkingGraph(get(0));
 		}
 	}
@@ -87,7 +88,7 @@ public class MarkingGraph extends ArrayList<Marking>{
 			//fügt Markierung hinzu und setzt ID
 			add(marking);
 			marking.setMarkingID(size()-1);
-			notifyListener(new ModelEvent(marking, "addMarking"));
+			notifyListener(new ModelEvent(marking, ModelAction.ADD_MARKING));
 			//aktualisiert Kanten
 			updateEdges(new MarkingGraphEdge(transition, currentMarking, marking));
 			//new aktuelle Markierung des Graphen
@@ -98,7 +99,7 @@ public class MarkingGraph extends ArrayList<Marking>{
 		} else {
 			//holt Markierung mit ID aus dem Graphen
 			marking = get(indexOf(marking));
-			notifyListener(new ModelEvent(marking, "highlightMarking"));
+			notifyListener(new ModelEvent(marking, ModelAction.HIGHLIGHT_MARKING));
 			//aktualisiert Kanten
 			updateEdges(new MarkingGraphEdge(transition, currentMarking, marking));
 			//neue aktuelle Markierung
@@ -112,10 +113,10 @@ public class MarkingGraph extends ArrayList<Marking>{
 		//Kante noch nicht vorhanden und wird hinzugefügt
 		if(!currentMarking.getAdjList().contains(edge)) {
 			currentMarking.getAdjList().add(edge);
-			notifyListener(new ModelEvent(edge, "addEdge"));
+			notifyListener(new ModelEvent(edge, ModelAction.ADD_EDGE));
 			//Kante bereits vorhanden
 		} else {
-			notifyListener(new ModelEvent(edge, "highlightEdge"));
+			notifyListener(new ModelEvent(edge, ModelAction.HIGHLIGHT_EDGE));
 		}
 	}
 	
@@ -133,8 +134,8 @@ public class MarkingGraph extends ArrayList<Marking>{
 		//Wird nur ausgeführt, falls übergebene ID
 		//nicht die der aktuellen Markierung ist
 		if(currentMarking != get(Integer.parseInt(id))) {
-			notifyListener(new ModelEvent(get(Integer.parseInt(id)), "highlightMarking"));
-			notifyListener(new ModelEvent(new MarkingGraphEdge(null, null, null), "highlightEdge"));
+			notifyListener(new ModelEvent(get(Integer.parseInt(id)), ModelAction.HIGHLIGHT_MARKING));
+			notifyListener(new ModelEvent(new MarkingGraphEdge(null, null, null), ModelAction.HIGHLIGHT_EDGE));
 			//neue aktuelle Markierung
 			currentMarking = get(Integer.parseInt(id));
 		}

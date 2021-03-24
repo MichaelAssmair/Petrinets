@@ -15,7 +15,7 @@ import java.util.Objects;
  * @see Transition
  *
  */
-class Element implements Comparable<Element>{
+abstract class Element implements Comparable<Element>{
 	
 	//ID des Elements
 	private String id;

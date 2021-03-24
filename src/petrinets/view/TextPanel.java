@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
 import petrinets.markingGraphModel.Marking;
@@ -120,20 +121,20 @@ class TextPanel extends JPanel implements ModelListener {
 	@Override
 	public void modelChanged(ModelEvent evt) {
 		//String wird übergeben
-		if ("printLine".equals(evt.getCommand())) {
+		if (ModelAction.PRINT_LINE.equals(evt.getAction())) {
 			text.append((String)evt.getSource() + "\n");
 			text.setCaretPosition(text.getDocument().getLength());
 		}
 		
 		// FIle wird übergeben
-		else if("loadFile".equals(evt.getCommand())) {
+		else if(ModelAction.LOAD_FILE.equals(evt.getAction())) {
 			label.setText(((File)evt.getSource()).getName());
 			text.append(((File)evt.getSource()).getName()  + " wurde geladen" + "\n");
 			text.setCaretPosition(text.getDocument().getLength());
 		}
 		
 		//Marking wird übergeben
-		else if ("addMarking".equals(evt.getCommand())) {
+		else if (ModelAction.ADD_MARKING.equals(evt.getAction())) {
 			//falls Startmarkierung übergeben wurde
 			if("0".equals(((Marking)evt.getSource()).getMarkingID())) {
 				text.append("Startmarkierung " + ((Marking)evt.getSource()).toString() + " wurde hinzugefügt." + "\n");
@@ -145,7 +146,7 @@ class TextPanel extends JPanel implements ModelListener {
 		}
 		
 		//MarkingEdge wird übergeben
-		else if("addEdge".equals(evt.getCommand())) {
+		else if(ModelAction.ADD_EDGE.equals(evt.getAction())) {
 			MarkingGraphEdge edge = (MarkingGraphEdge)evt.getSource();
 			text.append("Kante von " + edge.getPredMarking().toString() + " nach " + edge.getSuccMakring().toString() + " wurde hinzugefügt." + "\n");
 			text.setCaretPosition(text.getDocument().getLength());

@@ -8,6 +8,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import petrinets.controller.ButtonActions;
+
 /**
  * Diese Klasse repräsentiert die Menüleiste des Programms
  * 
@@ -43,6 +45,7 @@ class MenuBar extends JMenuBar {
 		this.petrinetView = petrinetView;
 		JMenu fileMenu = new JMenu("Datei");
 		
+		
 		fileMenu.add(openFile);
 		fileMenu.add(reset);
 		fileMenu.add(chooseMultipleData);
@@ -71,15 +74,15 @@ class MenuBar extends JMenuBar {
 	private void addActionListener() {
 		//meldet openFile an den Controller
 		openFile.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "openFile")));
+				.actionPerformed(new ActionEvent(ButtonActions.OPEN_FILE, 0, null)));
 		
 		//meldet reset an den Controller
 		reset.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "reset")));
+				.actionPerformed(new ActionEvent(ButtonActions.RESET, 0, null)));
 		
 		//meldet chooseMultipleData an den Controller
 		chooseMultipleData.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "chooseMultipleData")));
+				.actionPerformed(new ActionEvent(ButtonActions.CHOOSE_MULTIPLE_DATA, 0, null)));
 		
 		//wechselt zwischen Konten sind verschiebbar und nicht verschiebbar
 		setChangeable.addActionListener(e -> petrinetView

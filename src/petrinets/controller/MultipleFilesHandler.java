@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.swing.SwingWorker;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
 import petrinets.markingGraphModel.Marking;
@@ -143,12 +144,12 @@ class MultipleFilesHandler extends SwingWorker<List<String>, ModelEvent> impleme
 		sb.append(String.format("%1$-54s %2$s %3$-10s %4$s %5$s", "", "|", "", "|", "Knoten / Kanten bzw." + "\n"));
 		sb.append(String.format("%1$-54s %2$s %3$-10s %4$s %5$s", "Dateiname", "|", "beschränkt", "|", "Pfadlänge:Pfad; m, m’" + "\n"));
 		sb.append(String.format("-------------------------------------------------------|------------|-------------------------------------------------------"));
-		notifyListener(new ModelEvent(sb.toString(), "printLine"));
+		notifyListener(new ModelEvent(sb.toString(), ModelAction.PRINT_LINE));
 		
 		//Ausgabe der Ergebnisse
 		try {
 			for(String line : get()) {
-			notifyListener(new ModelEvent(line, "printLine"));
+			notifyListener(new ModelEvent(line, ModelAction.PRINT_LINE));
 			}
 		} catch (Exception ignore) {}
 	}
@@ -176,20 +177,20 @@ class MultipleFilesHandler extends SwingWorker<List<String>, ModelEvent> impleme
 	@Override
 	public void modelChanged(ModelEvent evt) {
 		//Anfangsmarkierung des Abbruchkriteriums wird übergeben
-		if("setOmegaPathEdge".equals(evt.getCommand())) {
+		if(ModelAction.SET_OMEGA_PATH.equals(evt.getAction())) {
 			omegaPath.add(((MarkingGraphEdge)evt.getSource()).getTransition().getId());
 			
 			//Endmarkierung des Abbruchkriteriums wird übergeben
-		} else if("setSecondOmegaMarking".equals(evt.getCommand())) {
+		} else if(ModelAction.SET_SECOND_OMEGA_MARKING.equals(evt.getAction())) {
 			omgeaMarkings.add(((Marking)evt.getSource()).toString());
 			
 			//Anfangsmarkierung des Abbruchkriteriums wird übergeben
-		} else if("setFirstOmegaMarking".equals(evt.getCommand())) {
+		} else if(ModelAction.SET_FIRST_OMEGA_MARKING.equals(evt.getAction())) {
 			omgeaMarkings.add(((Marking)evt.getSource()).toString());
 			
 			//neue Datei wurde geladen. Datei soll nicht im label angezeigt werden
-		} else if("loadFile".equals(evt.getCommand())) {
-			publish(new ModelEvent(((File)evt.getSource()).getName() + " wurde geladen", "printLine"));
+		} else if(ModelAction.LOAD_FILE.equals(evt.getAction())) {
+			publish(new ModelEvent(((File)evt.getSource()).getName() + " wurde geladen", ModelAction.PRINT_LINE));
 			
 			//andere Events
 		} else {

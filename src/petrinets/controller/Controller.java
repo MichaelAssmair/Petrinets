@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.petrinetModel.Petrinet;
 import petrinets.petrinetModel.Place;
@@ -74,8 +76,7 @@ public class Controller {
 		
 		//filter für pnml Dateien 
 		fileChooser.setFileFilter(new FileNameExtensionFilter("PNML file (*.pnml)", "pnml"));
-		//Einstellung um Ordner anzuzeigen
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
 		//wenn multi true ist, können mehrere Dateien ausgewählt werden
 		fileChooser.setMultiSelectionEnabled(multi);
 		
@@ -117,22 +118,27 @@ public class Controller {
 
 	
 	//ActionListener für die Menüleiste
-	private class MenuListener implements ActionListener{
+	private class MenuListener extends AbstractAction{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			//Schaltfläche "Öffnen.." wurde gewählt
-			if("openFile".equals(evt.getActionCommand())) {
+			if(ButtonActions.OPEN_FILE == evt.getSource()) {
 				highlightedPlace = null;
 				openFile(false);
 				
 				//Schaltfläche "Neu Laden" wurde gewählt
-			} else if("reset".equals(evt.getActionCommand()) && file != null) {
+			} else if(ButtonActions.RESET == evt.getSource() && file != null) {
 				highlightedPlace = null;
 				petrinet.loadPetrinetFromFile(file);
 				
 				//Schaltfläche "Analyse mehrerer Dateien..." wurde gewählt
-			} else if("chooseMultipleData".equals(evt.getActionCommand())) {
+			} else if(ButtonActions.CHOOSE_MULTIPLE_DATA == evt.getSource()) {
 				openFile(true);
 			}	
 		}
@@ -145,24 +151,24 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			//Button "resetPetrinet" wurde betätigt
-			if("resetPetrinet".equals(evt.getActionCommand()) && file != null) {
+			if(ButtonActions.RESET_PETRINET == evt.getSource() && file != null) {
 				petrinet.setMarking("0");
 				
 				//Button "clearMarkingGraph" wurde betätigt
-			} else if("clearMarkingGraph".equals(evt.getActionCommand()) && file != null) {
+			} else if(ButtonActions.CLEAR_MARKING_GRAPH == evt.getSource() && file != null) {
 				petrinet.setMarking("0");
 				petrinet.getMarkingGraph().resetMarkingGraph();
 				
 				//Button "plusToken" wurde betätigt
-			} else if("plusToken".equals(evt.getActionCommand()) && highlightedPlace != null) {
+			} else if(ButtonActions.PLUS_TOKEN == evt.getSource() && highlightedPlace != null) {
 				petrinet.plusToken(highlightedPlace);
 				
 				//Button "minusToken" wurde betätigt
-			} else if("minusToken".equals(evt.getActionCommand()) && highlightedPlace != null) {
+			} else if(ButtonActions.MINUS_TOKEN == evt.getSource() && highlightedPlace != null) {
 				petrinet.minusToken(highlightedPlace);
 				
 				//Button "analyseGraph" wurde betätigt
-			} else if("analyseGraph".equals(evt.getActionCommand())) {
+			} else if(ButtonActions.ANALYSE_GRAPH == evt.getSource()) {
 				analysePetrinet();
 			}	
 		}	
@@ -175,16 +181,16 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			//Klick auf Knoten des Petri-Netzes
-			if("petrinetClick".equals(evt.getActionCommand())) {
-				if(petrinet.getTransitions().containsKey((String)evt.getSource())){
-					petrinet.update((String)evt.getSource());
+			if(ButtonActions.PETRINET_CLICK.equals(evt.getSource())) {
+				if(petrinet.getTransitions().containsKey(evt.getActionCommand())){
+					petrinet.update(evt.getActionCommand());
 				} else {
-					updateHighlightedPlace((String)evt.getSource());
+					updateHighlightedPlace(evt.getActionCommand());
 				}
 				
 				//Klick auf Knoten des Markierungsgraphen
-			} else if("markingGraphClick".equals(evt.getActionCommand())) {
-				petrinet.setMarking((String)evt.getSource());
+			} else if(ButtonActions.MARKING_GRAPH_CLICK.equals(evt.getSource())) {
+				petrinet.setMarking(evt.getActionCommand());
 			}
 			
 		}
@@ -196,13 +202,13 @@ public class Controller {
 			//wenn die ID der bereits hervorgehobenen ID
 			//entspricht, wird die Hervorhebung aufgehoben
 			if(highlightedPlace != null && id.equals(highlightedPlace.getId())) {
-				view.getPetrinetView().modelChanged(new ModelEvent(highlightedPlace, "highlightPlace"));
+				view.getPetrinetView().modelChanged(new ModelEvent(highlightedPlace, ModelAction.HIGHLIGHT_PLACE));
 				highlightedPlace = null;
 			//sonst wird die Stelle mit der übergebenen ID 
 			//zur neuen hervorgehobenen Stelle	
 			} else {
 				highlightedPlace = petrinet.getPlaces().get(id);
-				view.getPetrinetView().modelChanged(new ModelEvent(highlightedPlace, "highlightPlace"));
+				view.getPetrinetView().modelChanged(new ModelEvent(highlightedPlace, ModelAction.HIGHLIGHT_PLACE));
 			}
 	}
 }

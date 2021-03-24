@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
 import petrinets.markingGraphModel.Marking;
@@ -62,7 +63,7 @@ public class Petrinet {
 		clearPetrinet();
 		
 		//lädt Petri-Netz aus Datei
-		notifyListener(new ModelEvent(file, "loadFile"));
+		notifyListener(new ModelEvent(file, ModelAction.LOAD_FILE));
 		PetrinetParser.loadFile(file, this);
 		
 		//initialisiert Markierungsgraph
@@ -105,20 +106,20 @@ public class Petrinet {
 	
 	//aktualisiert das Petri-Netz anhand der geschalteten Transition
 	private void updatePlaces(String transitionID) {	
-		notifyListener(new ModelEvent(transitions.get(transitionID).getIdAndName() + " wurde geschalten.", "printLine"));
+		notifyListener(new ModelEvent(transitions.get(transitionID).getIdAndName() + " wurde geschalten.", ModelAction.PRINT_LINE));
 		
 		//Schleife über die Stellen im Vorbereich
 		for(Place place : transitions.get(transitionID).getPreviousPlaces()) {
 			place.setTokens(place.getTokens()-1);
 			//Listener werden informiert
-			notifyListener(new ModelEvent(place, "updatePlace"));
+			notifyListener(new ModelEvent(place, ModelAction.UPDATE_PLACE));
 		}
 		
 		//Schleife über die Stellen im Nachbereich
 		for(Place place : transitions.get(transitionID).getNextPlaces()) {
 			place.setTokens(place.getTokens()+1);
 			//Listener werden informiert
-			notifyListener(new ModelEvent(place, "updatePlace"));
+			notifyListener(new ModelEvent(place, ModelAction.UPDATE_PLACE));
 
 		}	
 	}
@@ -130,7 +131,7 @@ public class Petrinet {
 		for(Transition transition : transitions.values()) {
 			transition.setActiv();
 			//Listener werden informiert
-			notifyListener(new ModelEvent(transition, "updateTransition"));;
+			notifyListener(new ModelEvent(transition, ModelAction.UPDATE_TRANSITION));;
 		}
 	}
 	
@@ -182,7 +183,7 @@ public class Petrinet {
 		for(Place place : places.values()) {
 			place.setTokens(startmarking[idx++]);
 			//Listener werden informiert
-			notifyListener(new ModelEvent(place, "updatePlace"));
+			notifyListener(new ModelEvent(place, ModelAction.UPDATE_PLACE));
 		}
 		//Transitionen und Markierungsgraph werden
 		//nach der Änderung aktualisiert
@@ -198,7 +199,7 @@ public class Petrinet {
 	 */
 	final void addTransitionsPreAndNext(Set<PertinetEdge> arcs) {
 		for(PertinetEdge arc : arcs) {	
-			notifyListener(new ModelEvent(arc, "addArc"));
+			notifyListener(new ModelEvent(arc, ModelAction.ADD_ARC));
 			//Stelle im Vorbereich
 			if(places.containsKey(arc.getSourceID())) {
 				transitions.get(arc.getTargetID()).addPreviousPlace(places.get(arc.getSourceID()));
@@ -228,7 +229,7 @@ public class Petrinet {
 	final void addPlace(Place place) {
 		places.put(place.getId(), place);
 		//Listener werden informiert
-		notifyListener(new ModelEvent(place, "addPlace"));
+		notifyListener(new ModelEvent(place, ModelAction.ADD_PLACE));
 	}
 	
 	/**
@@ -239,7 +240,7 @@ public class Petrinet {
 	final void addTransition(Transition transition) {
 		transitions.put(transition.getId(), transition);
 		//Listener werden informiert
-		notifyListener(new ModelEvent(transition, "addTransition"));
+		notifyListener(new ModelEvent(transition, ModelAction.ADD_TRANSITION));
 	}
 	
 	/**

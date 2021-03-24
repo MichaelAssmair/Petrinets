@@ -18,8 +18,10 @@ import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerListener;
 import org.graphstream.ui.view.ViewerPipe;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
+import petrinets.controller.ButtonActions;
 import petrinets.markingGraphModel.Marking;
 import petrinets.markingGraphModel.MarkingGraphEdge;
 import petrinets.markingGraphModel.MarkingGraph;
@@ -143,7 +145,7 @@ class MarkingGraphView extends JPanel implements ModelListener {
 
 			@Override
 			public void buttonPushed(String id) {
-				listener.actionPerformed(new ActionEvent(id, 0, "markingGraphClick"));
+				listener.actionPerformed(new ActionEvent(ButtonActions.MARKING_GRAPH_CLICK, 0, id));
 			}
 		});
 	}
@@ -263,33 +265,33 @@ class MarkingGraphView extends JPanel implements ModelListener {
 	@Override
 	public void modelChanged(ModelEvent evt) {
 		//Marking wir übergeben
-		if ("addMarking".equals(evt.getCommand())) {
+		if (ModelAction.ADD_MARKING.equals(evt.getAction())) {
 			addMarking((Marking)evt.getSource());
 			highlightNode((Marking)evt.getSource());
 			
 		//Marking wir übergeben
-		} else if("highlightMarking".equals(evt.getCommand())) {
+		} else if(ModelAction.HIGHLIGHT_MARKING.equals(evt.getAction())) {
 			highlightNode((Marking)evt.getSource());
 			
 		//MarkingGraphEdge wir übergeben
-		} else if("addEdge".equals(evt.getCommand())) {
+		} else if(ModelAction.ADD_EDGE.equals(evt.getAction())) {
 			addEdge((MarkingGraphEdge)evt.getSource());
 			highlightEdge((MarkingGraphEdge)evt.getSource());
 			
 		//MarkingGraphEdge wir übergeben
-		} else if("highlightEdge".equals(evt.getCommand())) {
+		} else if(ModelAction.HIGHLIGHT_EDGE.equals(evt.getAction())) {
 			highlightEdge((MarkingGraphEdge)evt.getSource());
 			
 		//Anfangsmarkierung des Abbruchkriteriums wird übergeben
-		} else if("setFirstOmegaMarking".equals(evt.getCommand())) {
+		} else if(ModelAction.SET_FIRST_OMEGA_MARKING.equals(evt.getAction())) {
 			setMarkingColor((Marking)evt.getSource(), 0.85);
 			
 		//Endmarkierung des Abbruchkriteriums wird übergeben
-		} else if("setSecondOmegaMarking".equals(evt.getCommand())) {
+		} else if(ModelAction.SET_SECOND_OMEGA_MARKING.equals(evt.getAction())) {
 			setMarkingColor((Marking)evt.getSource(), 0.66);
 			
 		//Kante des Pfades zum Abbruchkriterium wird übergeben
-		} else if("setOmegaPathEdge".equals(evt.getCommand())) {
+		} else if(ModelAction.SET_OMEGA_PATH.equals(evt.getAction())) {
 			setOmegaPathEdge((MarkingGraphEdge)evt.getSource(), 0.8);
 		}
 	}

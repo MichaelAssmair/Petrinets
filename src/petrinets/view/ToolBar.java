@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import petrinets.controller.ButtonActions;
+
 /**
  * Diese Klasse repräsentiert die ToolBar für das Programm
  * 
@@ -102,23 +104,23 @@ class ToolBar extends JToolBar {
 	private void addActionListener() {
 		//meldet resetPetrinet an den Controller
 		resetPetrinet.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "resetPetrinet")));	
+				.actionPerformed(new ActionEvent(ButtonActions.RESET_PETRINET, 0, null)));	
 		
 		//meldet clearMarkingGraph an den Controller
 		clearMarkingGraph.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "clearMarkingGraph")));
+				.actionPerformed(new ActionEvent(ButtonActions.CLEAR_MARKING_GRAPH, 0, null)));
 		
 		//meldet plusTokken an den Controller
 		plusToken.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "plusToken")));	
+				.actionPerformed(new ActionEvent(ButtonActions.PLUS_TOKEN, 0, null)));	
 		
 		//meldet minusTokken an den Controller
 		minusToken.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "minusToken")));	
+				.actionPerformed(new ActionEvent(ButtonActions.MINUS_TOKEN, 0, null)));	
 		
 		//meldet analyseGraph an den Controller
 		analyseGraph.addActionListener(e -> actionListener
-				.actionPerformed(new ActionEvent(this, 0, "analyseGraph")));	
+				.actionPerformed(new ActionEvent(ButtonActions.ANALYSE_GRAPH, 0, null)));	
 		
 		//setzt die Kamera des petrinetViews zurück
 		resetPetrinetView.addActionListener(e -> petrinetView

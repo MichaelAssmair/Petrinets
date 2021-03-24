@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import petrinets.ModelAction;
 import petrinets.ModelEvent;
 import petrinets.ModelListener;
 import petrinets.markingGraphModel.Marking;
@@ -73,8 +74,8 @@ class BoundednessAlgorithm {
 	 */
 	protected boolean analyse() {
 		//informiert Beobachter, dass der Algorithmus gestartet wurde
-		notifyListener(new ModelEvent("Automatlisch analyse des Petrinetz wurde gestartet.", "printLine"));
-		notifyListener(new ModelEvent("---------------------------------------------------", "printLine"));
+		notifyListener(new ModelEvent("Automatlisch analyse des Petrinetz wurde gestartet.", ModelAction.PRINT_LINE));
+		notifyListener(new ModelEvent("---------------------------------------------------", ModelAction.PRINT_LINE));
 		
 		//setzt das Petri-Netz auf die Startmarkierung 
 		//und setzt den Markierungsgraph zurück
@@ -105,7 +106,7 @@ class BoundednessAlgorithm {
 						//Setzt Petri-Netz auf die Markierung die zum Abbruch geführt hat
 						//informiert Beobachter und gibt true an den Aufrufer zurück
 						petrinet.setMarking(markingGraph.getCurrentMarking().getMarkingID());
-						notifyListener(new ModelEvent("Das Petrin-Netz ist unbeschränkt. Knoten: " + markingGraph.size() + " Kanten: " + markingGraph.getEdgesNumber(), "printLine"));
+						notifyListener(new ModelEvent("Das Petrin-Netz ist unbeschränkt. Knoten: " + markingGraph.size() + " Kanten: " + markingGraph.getEdgesNumber(), ModelAction.PRINT_LINE));
 						return true;
 					}
 				}
@@ -119,7 +120,7 @@ class BoundednessAlgorithm {
 		} while(!queue.isEmpty());
 		
 		//informiert Beobachter, dass das Petri-Netz beschränkt ist
-		notifyListener(new ModelEvent("Das Petrin-Netz ist beschränkt. Knoten: " + markingGraph.size() + " Kanten: " + markingGraph.getEdgesNumber(), "printLine"));
+		notifyListener(new ModelEvent("Das Petrin-Netz ist beschränkt. Knoten: " + markingGraph.size() + " Kanten: " + markingGraph.getEdgesNumber(), ModelAction.PRINT_LINE));
 		return false;
 	}
 	
@@ -137,11 +138,11 @@ class BoundednessAlgorithm {
 			
 			//prüft Abbruchkriterium
 			if(marking.isOmega(markingGraph.getCurrentMarking()) && breadthFirstSearch(marking, markingGraph.getCurrentMarking())) {	
-				notifyListener(new ModelEvent(markingGraph.getCurrentMarking(), "setSecondOmegaMarking"));
-				notifyListener(new ModelEvent(marking, "setFirstOmegaMarking"));
+				notifyListener(new ModelEvent(markingGraph.getCurrentMarking(), ModelAction.SET_SECOND_OMEGA_MARKING));
+				notifyListener(new ModelEvent(marking, ModelAction.SET_FIRST_OMEGA_MARKING));
 				// MarkingEdge mit (null, null, null) initialisiert bewirkt,
 				// dass eine in der Visualisierung hervorgehobene Kante nicht mehr hervorgehoben ist.
-				notifyListener(new ModelEvent(new MarkingGraphEdge(null, null, null), "highlightEdge"));
+				notifyListener(new ModelEvent(new MarkingGraphEdge(null, null, null), ModelAction.HIGHLIGHT_EDGE));
 				return true;
 			}
 		}
@@ -203,7 +204,7 @@ class BoundednessAlgorithm {
 	//übergibt dem Beobachter jede Kante des Weges
 	private void drawOmegaPath(TreeNode treeNode) {
 		while(treeNode.parent != null) {	
-			notifyListener(new ModelEvent(treeNode.getEdgeFromParent(), "setOmegaPathEdge"));
+			notifyListener(new ModelEvent(treeNode.getEdgeFromParent(), ModelAction.SET_OMEGA_PATH));
 			treeNode = treeNode.parent;
 		} 
 		//rekursiver Aufruf, bis Startmarkierung erreicht ist
