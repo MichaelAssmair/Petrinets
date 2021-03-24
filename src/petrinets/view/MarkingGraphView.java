@@ -246,13 +246,13 @@ class MarkingGraphView extends JPanel implements ModelListener {
 	 * 
 	 * Der {@link ModelListener} kann die Befehle<br>
 	 * <ul>
-	 * <li> <Strong>addMarking</Strong> - falls eine Markierung hinzugefügt wurde. Quelle {@link Marking}
-	 * <li> <Strong>addEdge</Strong> - falls eine Kante hinzugefügt wurde. Quelle {@link MarkingGraphView}
-	 * <li> <Strong>highlightMarking</Strong> -  um eine Markierung hervorzuheben. Quelle {@link Marking}
-	 * <li> <Strong>highlightEdge</Strong> - um eine Kante hervorzuheben. Quelle {@link MarkingGraphEdge}
-	 * <li> <Strong>setFirstOmegaMarking</Strong> - um die erste Markierung des Abbruchkriteriums zu markieren. Quelle {@link Marking}
-	 * <li> <Strong>setSecondOmegaMarking</Strong> - um die zweite Markierung des Abbruchkriteriums zu markieren. Quelle {@link Marking}
-	 * <li> <Strong>setOmegaPathEdge</Strong> -  um den Pfad zu markieren der zum Abbruchkriterium geführt hat. Quelle {@link MarkingGraphView}
+	 * <li> <Strong>ADD_MARKING</Strong> - falls eine Markierung hinzugefügt wurde. Quelle {@link Marking}
+	 * <li> <Strong>ADD_EDGE</Strong> - falls eine Kante hinzugefügt wurde. Quelle {@link MarkingGraphView}
+	 * <li> <Strong>HIGHLIGHT_MARKING</Strong> -  um eine Markierung hervorzuheben. Quelle {@link Marking}
+	 * <li> <Strong>HIGHLIGHT_EDGE</Strong> - um eine Kante hervorzuheben. Quelle {@link MarkingGraphEdge}
+	 * <li> <Strong>SET_FIRST_OMEGA_MARKING</Strong> - um die erste Markierung des Abbruchkriteriums zu markieren. Quelle {@link Marking}
+	 * <li> <Strong>SET_SECOND_OMEGA_MARKING</Strong> - um die zweite Markierung des Abbruchkriteriums zu markieren. Quelle {@link Marking}
+	 * <li> <Strong>SET_OMEGA_PATH</Strong> -  um den Pfad zu markieren der zum Abbruchkriterium geführt hat. Quelle {@link MarkingGraphView}
 	 * </ul>
 	 * 
 	 * @see ModelListener

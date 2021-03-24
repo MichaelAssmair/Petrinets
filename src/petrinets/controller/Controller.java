@@ -176,6 +176,7 @@ public class Controller {
 	
 	
 	//ActionListener für die GraphStreamViewer
+	//evt command enthält die ID des geklickten elements als String
 	private class GraphStreamViewerListener implements ActionListener{
 
 		@Override

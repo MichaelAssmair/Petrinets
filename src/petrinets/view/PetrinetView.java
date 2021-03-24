@@ -279,13 +279,13 @@ class PetrinetView extends JPanel implements ModelListener{
 	/**
 	 * Dieser ModelListener kann die folgenden Befehle verarbeiten:<br>
 	 * <ul>
-	 * <li><Strong>loadFile</Strong> - Darstellung wird zurückgesetzt. Quelle {@link File}
-	 * <li><Strong>addPlace</Strong> - fügt der Darstellung eine Stelle hinzu. Quelle {@link Place}
-	 * <li><Strong>addTransition</Strong> - fügt der Darstellung eine Transition hinzu. Quelle {@link Transition}
-	 * <li><Strong>addArc</Strong> - fügt der Darstellung eine Kante hinzu. Quelle {@link PertinetEdge}
-	 * <li><Strong>updatePlace</Strong> - Aktualisierung einer Stelle. Quelle {@link Place}
-	 * <li><Strong>updateTransition</Strong> - Aktualisierung einer Transition. Quelle {@link Transition}
-	 * <li><Strong>highlightPlace</Strong> - eine Stelle wird hervorgehoben. Quelle {@link Place}
+	 * <li><Strong>LOAD_FILE</Strong> - Darstellung wird zurückgesetzt. Quelle {@link File}
+	 * <li><Strong>ADD_PLACE</Strong> - fügt der Darstellung eine Stelle hinzu. Quelle {@link Place}
+	 * <li><Strong>ADD_TRANSITION</Strong> - fügt der Darstellung eine Transition hinzu. Quelle {@link Transition}
+	 * <li><Strong>ADD_ARC</Strong> - fügt der Darstellung eine Kante hinzu. Quelle {@link PertinetEdge}
+	 * <li><Strong>UPDATE_PLACE</Strong> - Aktualisierung einer Stelle. Quelle {@link Place}
+	 * <li><Strong>UPDATE_TRANSITION</Strong> - Aktualisierung einer Transition. Quelle {@link Transition}
+	 * <li><Strong>HIGHLIGHT_PLACE</Strong> - eine Stelle wird hervorgehoben. Quelle {@link Place}
 	 * </ul>
 	 * 
 	 * andere Befehle werden ignoriert

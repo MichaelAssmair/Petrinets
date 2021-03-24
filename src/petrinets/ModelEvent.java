@@ -26,10 +26,10 @@ public class ModelEvent extends EventObject {
 	 * 
 	 * 
 	 * @param source Quelle des Events.
-	 * @param command Befehl es Events
+	 * @param action Befehl es Events
 	 * 
 	 * @see #getSource()
-	 * @see #getCommand()
+	 * @see #getAction()
 	 * @see ModelListener
 	 */
 	public ModelEvent(Object source, ModelAction action) {
