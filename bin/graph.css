@@ -1,0 +1,207 @@
+/*
+	Dies ist die css-Datei, in der das Layout des Graphen beschrieben ist.
+*/
+
+/*
+	Rand des Graphen 65px
+*/
+
+graph { 
+
+	padding: 65px; 
+}
+
+/*
+	Style-Angabe fuer einen Markeirung
+*/
+
+
+node.marking {
+
+	shape: rounded-box;
+	fill-mode: dyn-plain;
+	fill-color: #C6C6C6, #FFFFFF, #E54747, #87FF5A;
+
+	text-color: #003366;
+	text-size: 13;
+
+	stroke-mode: plain;
+	stroke-color: #003366;
+	stroke-width: 2px;
+}
+	
+/*
+	Style-Angabe fuer hervorgehobene Knoten
+*/
+
+
+node.highlighted {
+
+	shadow-mode: plain;
+	shadow-width: 4px; 
+	shadow-color: #608BE1;
+	shadow-offset: 0px;
+}
+
+
+/*
+	Style-Angabe fuer Stellen
+	ohne Marken
+*/
+
+node.place {
+
+	size: 50px;
+
+	text-alignment : under;
+	text-color: #003366;
+	text-size: 13;
+
+
+	stroke-mode: plain;
+	stroke-color: #003366;
+	stroke-width: 2px;
+}
+
+/*
+	Style-Angabe fuer Stellen mit Marken
+*/
+
+
+node."0" {
+
+	fill-color: #FFFFFF;
+}
+
+
+
+node."1" {
+
+	fill-mode: image-scaled-ratio-min;
+	fill-image: url('images/one.png');
+}
+
+
+
+node."2" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/two.png');
+}
+
+
+
+node."3" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/three.png');
+}
+
+
+
+node."4" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/four.png');
+}
+
+
+
+node."5" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/five.png');
+}
+
+
+
+node."6" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/six.png');
+}
+
+
+
+node."7" {
+	
+	fill-mode: image-scaled;
+	fill-image: url('images/seven.png');
+}
+
+
+
+node."8" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/eight.png');
+}
+
+
+
+node."9" {
+
+	fill-mode: image-scaled;
+	fill-image: url('images/nine.png');
+}
+
+
+
+node.more {
+	
+	fill-mode: image-scaled;
+	fill-image: url('images/more.png');
+}
+
+/*
+	Style-Angabe fuer einen Transition
+*/
+
+node.transition {
+
+	shape: box;
+	size: 50px;
+	
+	fill-mode: dyn-plain;
+	fill-color: #E54747, #87FF5A;
+
+	
+	text-alignment : under;
+	text-color: #003366;
+	text-size: 13;
+
+
+	stroke-mode: plain;
+	stroke-color: #003366;
+	stroke-width: 2px;
+}
+
+/*
+	Style-Angabe fuer eine Kante
+*/
+
+edge {
+	
+	size: 2px;
+
+	fill-mode: dyn-plain;
+	fill-color: #000000, #FF0000;
+
+	text-size:  12;
+	text-color: purple;
+
+	arrow-shape: arrow;
+	arrow-size: 9px, 6px;
+}
+
+/*
+	Style-Angabe fuer einen hervorgehobene Kante
+*/
+
+edge.highlighted {
+
+	shadow-mode: plain;
+	shadow-width: 2px; 
+	shadow-color: #608BE1;
+	shadow-offset: 0px;
+}
